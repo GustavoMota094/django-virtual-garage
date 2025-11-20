@@ -14,14 +14,14 @@
 <body>
     <div class="detail-card">
         <h1>Car Details</h1>
-        <!-- The DetailView passes the car object as 'object' by default -->
-        <h2>{{ object.year }} {{ object.make }} {{ object.model }}</h2>
-        
-        {% if object.nickname %}
-            <p><strong>Nickname:</strong> {{ object.nickname }}</p>
-        {% endif %}
+        <h2>{{ object.year }} {{ object.car_type.make }} {{ object.car_type.model }} {% if car.nickname %}<em>"{{ car.nickname }}</em>{% endif %}"</h2>
+
+        <p><strong>Trim Level:</strong> {{ object.trim_level }}</p>
+        <p><strong>Engine:</strong> {{ object.engine }}</p>
         
         <p><strong>Owner:</strong> {{ object.owner.username }}</p>
+
+        <a href="{% url 'cars:maintenance_record' car.pk %}"><h3>Maintenance Record</h3></a>
 
         <hr>
         <a href="{% url 'cars:garage' %}"> &larr; Back to My Garage</a>
