@@ -16,8 +16,6 @@ class Car(models.Model):
     """
     Represents a single car in a user's garage.
     """
-    # Each car must be owned by a user.
-    # on_delete=models.CASCADE means if a user is deleted, their cars are also deleted.
     car_type = models.ForeignKey(CarType, on_delete=models.PROTECT)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -25,22 +23,20 @@ class Car(models.Model):
     engine = models.CharField(max_length=100)
 
     year = models.PositiveIntegerField()
-    nickname = models.CharField(max_length=50, blank=True, null=True) # Optional field
+    nickname = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
-        # This is what will be displayed in the admin panel and other string representations.
-        return f"{self.year} {self.make} {self.model}"
+        return f"{self.year} {self.car_type.make} {self.car_type.model} ({self.owner.username})"
 
 class MaintenanceLog(models.Model):
     """
     Represents a single maintenance record for a car.
     """
-    # Each log must be associated with a specific car.
     car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name='maintenance_logs')
-
     date = models.DateField()
     description = models.TextField()
-    cost = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    parts_cost = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    labor_cost = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
         return f"Log for {self.car} on {self.date}"

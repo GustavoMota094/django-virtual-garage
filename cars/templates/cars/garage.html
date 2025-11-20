@@ -19,19 +19,15 @@
         {% for car in user_cars %}
             <div class="car">
                 <a href="{% url 'cars:car_detail' car.pk %}">
-                    <h3>{{ car.year }} {{ car.make }} {{ car.model }}</h3>
+                    <h3>{{ car.year }} {{ car.car_type.make }} {{ car.car_type.model }} {% if car.nickname %}<em>"{{ car.nickname }}</em>{% endif %}"</h3>
                 </a>
-                {% if car.nickname %}
-                    <p><em>Nickname: {{ car.nickname }}</em></p>
-                {% endif %}
+                <p><strong>Trim:</strong> {{ car.trim_level }} {{ car.engine }}</p>
             </div>
         {% endfor %}
     {% else %}
-        <!-- This message shows if the user has no cars -->
         <p>Your garage is empty. Time to add a car!</p>
     {% endif %}
 
-    <!-- Django's authentication system provides a 'user' object to all templates -->
     {% if user.is_authenticated %}
         <p><a href="/admin/logout/">Logout</a></p>
     {% endif %}
