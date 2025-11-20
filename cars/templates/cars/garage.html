@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Garage</title>
+    <style>
+        body { font-family: sans-serif; padding: 2em; }
+        .car { border: 1px solid #ccc; padding: 1em; margin-bottom: 1em; border-radius: 5px; }
+        h1, h2 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Your Garage, {{ user.username }}!</h1>
+    <a href="{% url 'cars:add_car' %}" style="background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">+ Add New Car</a>
+    
+    {% if user_cars %}
+        <h2>Here are your cars:</h2>
+        {% for car in user_cars %}
+            <div class="car">
+                <a href="{% url 'cars:car_detail' car.pk %}">
+                    <h3>{{ car.year }} {{ car.make }} {{ car.model }}</h3>
+                </a>
+                {% if car.nickname %}
+                    <p><em>Nickname: {{ car.nickname }}</em></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <!-- This message shows if the user has no cars -->
+        <p>Your garage is empty. Time to add a car!</p>
+    {% endif %}
+
+    <!-- Django's authentication system provides a 'user' object to all templates -->
+    {% if user.is_authenticated %}
+        <p><a href="/admin/logout/">Logout</a></p>
+    {% endif %}
+</body>
+</html>

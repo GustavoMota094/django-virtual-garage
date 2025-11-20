@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a New Car</title>
+    <style>
+        body { font-family: sans-serif; max-width: 500px; margin: 2em auto; }
+        form { display: flex; flex-direction: column; }
+        form p { display: flex; flex-direction: column; }
+        label { margin-bottom: 0.2em; font-weight: bold; }
+        input { padding: 0.5em; }
+        button { margin-top: 1.5em; padding: 0.7em; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        a { color: #007bff; text-decoration: none; display: inline-block; margin-top: 1em;}
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Add a New Car to Your Garage</h1>
+
+    <form method="post">
+        <!-- Django requires this for security -->
+        {% csrf_token %}
+
+        <!-- This will render all the form fields as paragraphs -->
+        {{ form.as_p }}
+
+        <button type="submit">Save Car</button>
+    </form>
+
+    <a href="{% url 'cars:garage' %}">Cancel</a>
+</body>
+</html>

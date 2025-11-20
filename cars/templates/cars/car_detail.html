@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ object.year }} {{ object.make }} {{ object.model }}</title>
+    <style>
+        body { font-family: sans-serif; padding: 2em; }
+        .detail-card { border: 1px solid #ccc; padding: 1.5em; border-radius: 5px; max-width: 500px; }
+        h1, h2 { color: #333; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="detail-card">
+        <h1>Car Details</h1>
+        <!-- The DetailView passes the car object as 'object' by default -->
+        <h2>{{ object.year }} {{ object.make }} {{ object.model }}</h2>
+        
+        {% if object.nickname %}
+            <p><strong>Nickname:</strong> {{ object.nickname }}</p>
+        {% endif %}
+        
+        <p><strong>Owner:</strong> {{ object.owner.username }}</p>
+
+        <hr>
+        <a href="{% url 'cars:garage' %}"> &larr; Back to My Garage</a>
+    </div>
+</body>
+</html>
