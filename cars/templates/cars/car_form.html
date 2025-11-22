@@ -18,10 +18,8 @@
     <h1>Add a New Car to Your Garage</h1>
 
     <form method="post">
-        <!-- Django requires this for security -->
         {% csrf_token %}
 
-        <!-- This will render all the form fields as paragraphs -->
         {{ form.as_p }}
 
         <button type="submit">Save Car</button>
