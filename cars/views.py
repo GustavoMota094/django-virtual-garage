@@ -52,7 +52,7 @@ class MaintenanceRecordView(LoginRequiredMixin, DetailView):
      
 class AddMaintenanceRecordView(LoginRequiredMixin, CreateView):
     """
-    Displays a form for adding a maitenance record for a car on the user's garage
+    Displays a form for adding a maitenance record
     """
     model = MaintenanceRecord
     form_class = MaintenanceRecordForm
