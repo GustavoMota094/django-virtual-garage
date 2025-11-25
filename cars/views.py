@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from .models import Car, MaintenanceRecord
 from .forms import CarForm, MaintenanceRecordForm
 
@@ -57,6 +57,16 @@ class AddMaintenanceRecordView(LoginRequiredMixin, CreateView):
     model = MaintenanceRecord
     form_class = MaintenanceRecordForm
     template_name = 'cars/maintenance_record_form.html'
+    success_url = reverse_lazy('cars:car_detail')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+    
+class CarUpdateView(LoginRequiredMixin, UpdateView):
+    model = Car
+    form_class = CarForm
+    template_name = 'cars/car_update_form.html'
     success_url = reverse_lazy('cars:car_detail')
 
     def form_valid(self, form):
