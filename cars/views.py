@@ -77,4 +77,6 @@ class CarDeleteView(LoginRequiredMixin, DeleteView):
     model = Car
     template_name = 'cars/car_confirm_delete.html'
     success_url = reverse_lazy('cars:garage')
-    
+
+    def get_queryset(self):
+        return Car.objects.filter(owner=self.request.user)
