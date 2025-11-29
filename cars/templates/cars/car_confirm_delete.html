@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Deletion</title>
+    <style>
+        body { font-family: sans-serif; max-width: 500px; margin: 2em auto; }
+        .confirm-box { border: 1px solid #dc3545; padding: 1.5em; border-radius: 5px; }
+        .buttons { margin-top: 1.5em; }
+        button { padding: 0.7em 1.2em; border: none; border-radius: 5px; cursor: pointer; }
+        .delete-btn { background-color: #dc3545; color: white; }
+        .cancel-link { display: inline-block; padding: 0.7em 1.2em; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px; margin-left: 1em; }
+    </style>
+</head>
+<body>
+    <div class="confirm-box">
+        <h1>Confirm Deletion</h1>
+
+        <!-- The DeleteView passes the object to be deleted as 'object' -->
+        <p>Are you sure you want to permanently delete your <strong>{{ object.year }} {{ object.car_type.make }} {{ object.car_type.model }}</strong>?</p>
+        <p>This action cannot be undone.</p>
+
+        <!-- The actual form that performs the delete action -->
+        <form method="post">
+            <!-- CSRF token is required for security -->
+            {% csrf_token %}
+            <div class="buttons">
+                <button type="submit" class="delete-btn">Yes, Delete</button>
+                <!-- Link back to the car's detail page if the user cancels -->
+                <a href="{% url 'cars:car_detail' object.pk %}" class="cancel-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
