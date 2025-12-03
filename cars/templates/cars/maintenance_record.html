@@ -12,25 +12,27 @@
     </style>
 </head>
 <body>
-    <h1>Maintenance Record for {{ object.year }} {{ object.make }} {{ object.model }} {% if car.nickname %}<em>"{{ car.nickname }}"</em>{% endif %}</h1>
-    <a href="{% url 'cars:add_maintenance_record' %}" style="background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">+ Add New Record</a>
+    <div class="maintenance-section">
+        <h1>Maintenance Record for {{ object.year }} {{ object.make }} {{ object.model }} {% if car.nickname %}<em>"{{ car.nickname }}"</em>{% endif %}</h1>
+        <a href="{% url 'cars:add-maintenance_record' %}" style="background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">+ Add New Record</a>
+        
+        {% if user_cars %}
+            <h2>Here is the record:</h2>
+            {% for car in user_cars %}
+                <div class="maintenance">
+                    <a href="{% url 'cars:maintenance_record' car.pk %}">
+                        <h3>{{ maintenance_record.description }} {{ maintenance_record.maintenance_type }}</h3>
+                    </a>
+                    <p><strong>Trim:</strong> {{ car.trim_level }} {{ car.engine }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Your car has no maintenance record yet. Time to add one!</p>
+        {% endif %}
     
-    {% if user_cars %}
-        <h2>Here is the record:</h2>
-        {% for car in user_cars %}
-            <div class="maintenance">
-                <a href="{% url 'cars:maintenance_record' car.pk %}">
-                    <h3>{{ maintenance_record.description }} {{ maintenance_record.maintenance_type }}</h3>
-                </a>
-                <p><strong>Trim:</strong> {{ car.trim_level }} {{ car.engine }}</p>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>Your car has no maintenance record yet. Time to add one!</p>
-    {% endif %}
-
-    {% if user.is_authenticated %}
-        <p><a href="/admin/logout/">Logout</a></p>
-    {% endif %}
+        {% if user.is_authenticated %}
+            <p><a href="/admin/logout/">Logout</a></p>
+        {% endif %}
+    </div>
 </body>
 </html>
