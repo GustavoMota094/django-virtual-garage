@@ -14,7 +14,7 @@
 <body>
     <div class="maintenance-section">
         <h1>Maintenance Record for {{ object.year }} {{ object.make }} {{ object.model }} {% if car.nickname %}<em>"{{ car.nickname }}"</em>{% endif %}</h1>
-        <a href="{% url 'cars:add-maintenance_record' %}" style="background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">+ Add New Record</a>
+        <a href="{% url 'cars:add-maintenance_record' %}" style="background-color: #004ea0; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">+ Add New Record</a>
         
         {% if user_cars %}
             <h2>Here is the record:</h2>
